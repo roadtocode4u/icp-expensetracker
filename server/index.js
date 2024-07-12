@@ -8,6 +8,10 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+import { postSignup, postLogin } from './controllers/user.js';
+
+import { postTransaction, getTransactions } from "./controllers/transaction.js";
+
 
 // Connect to MongoDB
 const connectDB = async () =>{
@@ -25,6 +29,12 @@ app.get('/', (req, res) => {
     message: `Welcome to Expense Tracker API`
   })
 })
+
+app.post("/signup", postSignup)
+app.post("/login", postLogin)
+
+app.post("/transaction", postTransaction)
+app.get("/transactions", getTransactions)
 
 const PORT = process.env.PORT || 5000;
 
